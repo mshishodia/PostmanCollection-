@@ -1,0 +1,2877 @@
+{
+	"info": {
+		"_postman_id": "398abd53-2fe3-4ced-b69d-7c2aa57acf04",
+		"name": "Core5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LEVEL1",
+			"item": [
+				{
+					"name": "GetCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testqa@test.com\",\r\n    \"product\": \"core5\",\r\n    \"attemptNum\": 1,\r\n    \"requestNum\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{AUTH_SERVER}}/getCustomer",
+							"protocol": "https",
+							"host": [
+								"{{AUTH_SERVER}}"
+							],
+							"path": [
+								"getCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Valid username\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"Test Chrome1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Role value\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.role).to.eql(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid StudentID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.personId).to.eql(\"17284534\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid endpoint\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.endpoint).to.eql(\"https://qa170.lexia-dev.com/api/core5/v2\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.__type__).to.eql(\"authenticateResponse\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid is True\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.valid).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Token value is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.token).not.eql(null)\r",
+									"});    \r",
+									"\r",
+									"{\r",
+									" jsonData = JSON.parse(responseBody);\r",
+									" pm.environment.set(\"auth\", jsonData.token);\r",
+									"}\r",
+									"\r",
+									"{\r",
+									" jsonData = JSON.parse(responseBody);\r",
+									" pm.environment.set(\"studentid\", jsonData.personId);\r",
+									"}\r",
+									"\r",
+									"{\r",
+									" jsonData = JSON.parse(responseBody);\r",
+									" pm.environment.set(\"auth\", jsonData.token);\r",
+									"}\r",
+									"{\r",
+									" jsonData = JSON.parse(responseBody);\r",
+									" pm.environment.set(\"authToken\", jsonData.Token);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\": \"chrome1\",\r\n\"password\": \"password\" , \r\n\"product\": \"core5\", \r\n\"customer_code\": \"1776-4594-2267-4976\",\r\n\"attemptNum\": 1,\r\n\"requestNum\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{AUTH_SERVER}}/authenticate",
+							"protocol": "https",
+							"host": [
+								"{{AUTH_SERVER}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginPHP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"nextPlacementUnitKey\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"nextPlacementUnitId\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid firstName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.firstName).to.eql(\"Test\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid lastName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.lastName).to.eql(\"Chrome1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid region\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.region).to.eql(\"us\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid Grade\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.grade).to.eql(\"Pre-K\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid language\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.language).to.eql(\"English\");\r",
+									"});\r",
+									"\r",
+									"{\r",
+									" jsonData = JSON.parse(responseBody);\r",
+									" pm.environment.set(\"authToken\", jsonData.authToken);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Valid conceptIndex\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].conceptIndex).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid activityIndex\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].activityIndex).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid unitIndex\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].unitIndex).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid modality\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].modality).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid phase\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].phase).to.eql(\"A\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": \"4.4.0\",\r\n    \"personId\": {{studentid}},\r\n    \"authserverToken\": \"{{auth}}\",\r\n    \"role\": 0,\r\n    \"requestNum\": 0,\r\n    \"attemptNum\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Login.php",
+							"protocol": "https",
+							"host": [
+								"{{MYLEXIA_SERVER}}"
+							],
+							"path": [
+								"api",
+								"core5",
+								"v3",
+								"Login.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update - Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"reason\": 0,\r\n\r\n\"attemptNum\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Logout.php",
+							"protocol": "https",
+							"host": [
+								"{{MYLEXIA_SERVER}}"
+							],
+							"path": [
+								"api",
+								"core5",
+								"v3",
+								"Logout.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warmup-FastFind",
+			"item": [
+				{
+					"name": "WarmupUpdate.php",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid sendErrorArray\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid studentPropertyArray\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid profile\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.profile).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid pollArray\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid studentId\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.studentId).not.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid requestNum\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.requestNum).to.eql(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid attemptNum\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"version\": \"4.4.0\", \r\n\"studentId\": {{studentid}}, \r\n\"authToken\":\"{{authToken}}\",\r\n \"requestNum\": 0,\r\n\"attemptNum\": 1,\r\n\"sendArray\": [\r\n    \"endArray\": []\r\n0: {\r\n    \"__type__\": \"Log\", \r\n    \"message\": \"The Application has requested to reset the touch timer.\", \r\n    \"severity\": 4\r\n    },\r\n\r\n\"message\": \"The Application has requested to reset the touch timer.\",\r\n\"severity\": 4\r\n\"stack\": \"\"\r\n\"__type__\": \"Log\"\r\n]\r\n\"askArray\": [],\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+							"protocol": "https",
+							"host": [
+								"{{MYLEXIA_SERVER}}"
+							],
+							"path": [
+								"api",
+								"core5",
+								"v3",
+								"Update.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PHASE A",
+			"item": [
+				{
+					"name": "Rhyming Words",
+					"item": [
+						{
+							"name": "GetCustomer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testqa@test.com\", \r\n    \"product\": \"core5\", \r\n    \"attemptNum\": 1, \r\n    \"requestNum\": 0\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{AUTH_SERVER}}/getcustomer",
+									"protocol": "https",
+									"host": [
+										"{{AUTH_SERVER}}"
+									],
+									"path": [
+										"getcustomer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid username\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"Test Chrome1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Role value\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.role).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid StudentID\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.personId).to.eql(\"17284534\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid endpoint\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.endpoint).to.eql(\"https://qa170.lexia-dev.com/api/core5/v2\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid type\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"authenticateResponse\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid is True\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.valid).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token value is not null\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.token).not.eql(null)\r",
+											"});    \r",
+											"\r",
+											"{\r",
+											" jsonData = JSON.parse(responseBody);\r",
+											" pm.environment.set(\"auth\", jsonData.token);\r",
+											"}\r",
+											"\r",
+											"{\r",
+											" jsonData = JSON.parse(responseBody);\r",
+											" pm.environment.set(\"studentid\", jsonData.personId);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"Chrome1\",\r\n    \"password\":\"password\",\r\n    \"product\":\"core5\",\r\n    \"customer_code\":\"1776-4594-2267-4976\",\r\n    \"attemptNum\":1,\r\n    \"requestNum\":0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{AUTH_SERVER}}/authenticate",
+									"protocol": "https",
+									"host": [
+										"{{AUTH_SERVER}}"
+									],
+									"path": [
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN.PHP",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid firstName\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.firstName).to.eql(\"Test\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid lastName\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.lastName).to.eql(\"Chrome1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid region\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.region).to.eql(\"us\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid Grade\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.grade).to.eql(\"Pre-K\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid language\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.language).to.eql(\"English\");\r",
+											"});\r",
+											"\r",
+											"{\r",
+											" jsonData = JSON.parse(responseBody);\r",
+											" pm.environment.set(\"authToken\", jsonData.authToken);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Valid conceptIndex\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].conceptIndex).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid activityIndex\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].activityIndex).to.eql(3);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid unitIndex\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].unitIndex).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid modality\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].modality).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid phase\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile.strandStatusArray[0].positionArray[0].phase).to.eql(\"A\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\":\"4.4.0\",\r\n    \"personId\":{{studentid}},\r\n    \"authserverToken\":\"{{auth}}\",\r\n    \"role\":0,\r\n    \"requestNum\":0,\r\n    \"attemptNum\":1\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Login.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Login.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-Unit1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 1,\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-Unit2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 2,\r\n    \"attemptNum\":1,\r\n     \"askArray\": []\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-Unit3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(3);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 3,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-UNIT4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(4);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\",\r\n     \"studentId\": {{studentid}},\r\n      \"authToken\": \"{{authToken}}\", \r\n     \"requestNum\": 4,\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-Unit5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(5);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 5,\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa170.lexia-dev.com/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"qa170",
+										"lexia-dev",
+										"com"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update-ActivityScreen",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 0,\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa170.lexia-dev.com/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"qa170",
+										"lexia-dev",
+										"com"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Letter Matching",
+					"item": [
+						{
+							"name": "Update-Unit1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\",\r\n    \"requestNum\": 1,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 2,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(3);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\",\r\n     \"studentId\": {{studentid}}, \r\n     \"authToken\": \"{{authToken}}\", \r\n     \"requestNum\": 3,\r\n     \r\n\"askArray\": []\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update - Unit4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(4);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 4,\r\n\"askArray\": []\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa170.lexia-dev.com/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"qa170",
+										"lexia-dev",
+										"com"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Catogerizing Words",
+					"item": [
+						{
+							"name": "Update -Unit1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}},\r\n     \"authToken\": \"{{authToken}}\",\r\n      \"requestNum\"\":1,\r\n\r\naskArray: []\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update- Unit2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 2,\r\n\r\n\"askArray\": []\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update- Unit3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 3,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 6,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 7,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 8,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Nursery Rhymes",
+					"item": [
+						{
+							"name": "Update - Unit1 ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": \"{{studentid}}\", \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 9,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update -Unit2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 10,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 1,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 2,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 3,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Print Concept",
+					"item": [
+						{
+							"name": "Update - Unit1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}},\r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 4,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 7,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update -Unit3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 10,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 11,\r\n    \r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Unit5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Valid nextPlacementUnitKey\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitKey).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid nextPlacementUnitId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.nextPlacementUnitId).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid sendErrorArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.sendErrorArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentPropertyArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentPropertyArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid profile\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.profile).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid pollArray\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.pollArray).to.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid studentId\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.studentId).not.eql(null);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid requestNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.requestNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid attemptNum\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.attemptNum).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid __type__ Updateresponse\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.__type__).to.eql(\"UpdateResponse\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"version\": \"4.4.0\", \r\n    \"studentId\": {{studentid}}, \r\n    \"authToken\": \"{{authToken}}\", \r\n    \"requestNum\": 14,\r\n\r\n\"askArray\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{MYLEXIA_SERVER}}/api/core5/v3/Update.php",
+									"protocol": "https",
+									"host": [
+										"{{MYLEXIA_SERVER}}"
+									],
+									"path": [
+										"api",
+										"core5",
+										"v3",
+										"Update.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PHASE B",
+			"item": [],
+			"description": "Level 1 Phase B activities"
+		}
+	]
+}
